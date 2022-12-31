@@ -5,4 +5,6 @@ module com.monopoly.monopolyprojetoo {
 
     opens com.monopoly.monopolyprojetoo to javafx.fxml;
     exports com.monopoly.monopolyprojetoo;
+    exports abstractClasses;
+    opens abstractClasses to javafx.fxml;
 }

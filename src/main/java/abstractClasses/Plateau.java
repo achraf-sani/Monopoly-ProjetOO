@@ -1,4 +1,6 @@
-package com.monopoly.monopolyprojetoo;
+package abstractClasses;
+
+import abstractClasses.Case;
 
 import java.util.ArrayList;
 
