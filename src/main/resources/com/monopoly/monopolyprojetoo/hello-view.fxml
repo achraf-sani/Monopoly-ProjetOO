@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="840.0" prefWidth="1015.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monopoly.monopolyprojetoo.Dés">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="965.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monopoly.monopolyprojetoo.Dés">
    <children>
       <HBox prefHeight="318.0" prefWidth="499.0">
          <children>
-            <ImageView fitHeight="714.0" fitWidth="788.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="714.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/plateau.jpg" />
                </image>
             </ImageView>
          </children>
       </HBox>
-      <ImageView fx:id="dice1Image" fitHeight="50.0" fitWidth="50.0" layoutX="384.0" layoutY="750.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dice1Image" fitHeight="50.0" fitWidth="50.0" layoutX="872.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@dice/dice1.png" />
          </image></ImageView>
-      <Button fx:id="rollButton" layoutX="527.0" layoutY="752.0" mnemonicParsing="false" onAction="#roll" prefHeight="50.0" prefWidth="165.0" text="Lancer les dés">
+      <Button fx:id="rollButton" layoutX="785.0" layoutY="494.0" mnemonicParsing="false" onAction="#roll" prefHeight="50.0" prefWidth="165.0" text="Lancer les dés">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <ImageView fx:id="dice2Image" fitHeight="50.0" fitWidth="50.0" layoutX="452.0" layoutY="750.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dice2Image" fitHeight="50.0" fitWidth="50.0" layoutX="798.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@dice/dice1.png" />
          </image>
