@@ -29,7 +29,7 @@ public class Dice {
                 System.out.println("Thread Running");
                 try {
                     for (int i = 0; i < 15; i++) {
-                        File file = new File("src/sample/dice/dice" + (random.nextInt(6)+1)+".png");
+                        File file = new File("src/main/resources/com/monopoly/monopolyprojetoo/dice/dice" + (random.nextInt(6)+1)+".png");
                         diceImage.setImage(new Image(file.toURI().toString()));
                         Thread.sleep(50);
                     }
