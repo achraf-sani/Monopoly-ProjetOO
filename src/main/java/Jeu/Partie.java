@@ -66,20 +66,24 @@ public class Partie {
                                 partieM.deplacerPion(joueur);
 
                                 _case = pm.getCase(joueur.getPosition());
+                                if (!(_case==null)) {
+                                    System.out.println(_case);
+                                    Thread.sleep(FPS);
 
-                                Thread.sleep(FPS);
+                                    pausePartie = true;
+                                    _case.fenetreAction(partieM);
 
-                                pausePartie = true;
-                                _case.fenetreAction(partieM);
 
-                                pausePartie = false;
-                                while(pausePartie && !START) { Thread.sleep(100); }
-                                // Fenetre Action;
-                                _case.actionCase(joueur, pm, partieM);
+                                    while (pausePartie && !START) {
+                                        Thread.sleep(200);
+                                    }
+                                    // Fenetre Action;
+                                    _case.actionCase(joueur, pm, partieM);
+                                }
 
                             }
 
-                            Thread.sleep(100);
+                            Thread.sleep(400);
                             partieM.deplacerPion(joueur);
                             partieM.refreshLabels(pm);
 

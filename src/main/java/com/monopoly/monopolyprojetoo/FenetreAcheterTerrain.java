@@ -105,7 +105,6 @@ public class FenetreAcheterTerrain {
     }
 
     private class EvtOui implements EventHandler<ActionEvent> {
-
         @Override
         public void handle(ActionEvent event) {
             partieM.getPartie().getPM().getCaseActive().setReponseQuestion(true);
@@ -114,7 +113,6 @@ public class FenetreAcheterTerrain {
         }
     }
     private class EvtNon implements EventHandler<ActionEvent> {
-
         @Override
         public void handle(ActionEvent event) {
             stage.close();
@@ -122,7 +120,6 @@ public class FenetreAcheterTerrain {
         }
     }
     private class EvtQuitter implements EventHandler<WindowEvent> {
-
         @Override
         public void handle(WindowEvent event) {
             partieM.getPartie().reprendrePartie();
