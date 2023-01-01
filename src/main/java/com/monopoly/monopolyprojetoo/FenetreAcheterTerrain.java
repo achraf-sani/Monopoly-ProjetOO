@@ -36,9 +36,6 @@ public class FenetreAcheterTerrain {
         stage.setOnHiding(new EvtQuitter());
     }
 
-    /**
-     * Initialise la HBox root de la FenetreAcheterTerrain avec une image, un label posant une question et des boutons Oui/Non.
-     */
     private void initRoot() {
         root.setPadding(new Insets(10,10,10,10));
         root.setSpacing(10);
@@ -47,15 +44,16 @@ public class FenetreAcheterTerrain {
         Image i_terrain;
 
         switch(partieM.getPartie().getPM().getCaseActive().getNom()) {
-            case "Gare Montparnasse": i_terrain = new Image("images/gare.jpg"); break;
-            case "Gare de Lyon": i_terrain = new Image("images/gare.jpg"); break;
-            case "Gare du Nord": i_terrain = new Image("images/gare.jpg"); break;
-            case "Gare Saint-Lazare": i_terrain = new Image("images/gare.jpg"); break;
-            case "Compagnie des eaux": i_terrain = new Image("images/eau.jpg"); break;
-            case "Compagnie d'électricité": i_terrain = new Image("images/elec.jpg"); break;
+            case "Gare Montparnasse": i_terrain = new Image("file:src/main/java/Jeu/Images/gare.jpg"); break;
+            case "Gare de Lyon": i_terrain = new Image("file:src/main/java/Jeu/Images/gare.jpg"); break;
+            case "Gare du Nord": i_terrain = new Image("file:src/main/java/Jeu/Images/gare.jpg"); break;
+            case "Gare Saint-Lazare": i_terrain = new Image("file:src/main/java/Jeu/Images/gare.jpg"); break;
+            case "Compagnie des eaux": i_terrain = new Image("file:src/main/java/Jeu/Images/eau.jpg"); break;
+            case "Compagnie d'électricité": i_terrain = new Image("file:src/main/java/Jeu/Images/gare.jpg"); break;
             default: {
                 String couleur = partieM.getPartie().getPM().getCaseActive().getCouleur();
-                i_terrain = new Image("images/m_"+couleur+".jpg");
+                //i_terrain = new Image("images/m_"+couleur+".jpg");
+                i_terrain = new Image("file:src/main/java/Jeu/Images/m_bleu.jpg");
             }; break;
         }
 

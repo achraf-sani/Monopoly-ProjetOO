@@ -41,7 +41,6 @@ public class Case_terrain extends Case{
     }
 
 
-
     public boolean acheterTerrain(JoueurMonopoly joueur, PartieMonopoly partieM) {
         if((joueur.getArgent() - this.getPrix()) <= 0) {
             System.out.println("Vous n'avez pas assez d'argent!");

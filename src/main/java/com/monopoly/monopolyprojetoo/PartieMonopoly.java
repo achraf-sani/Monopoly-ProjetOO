@@ -228,7 +228,7 @@ public class PartieMonopoly {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                // l_ParcGratuit.setText(""+pm.getCase(20).getPrix()+"$");
+                l_ParcGratuit.setText(""+pm.getCase(20).getPrix()+"$");
 
                 for (int i=0; i<pm.getNbrJoueurs(); i++){
                     l_joueurs.get(i).setText(""+pm.getJoueur(i).getArgent()+"$.");

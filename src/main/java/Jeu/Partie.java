@@ -65,20 +65,23 @@ public class Partie {
                                 pm.deplacerJoueur(joueur, started);
                                 partieM.deplacerPion(joueur);
 
-                                // _case = pm.getCase(joueur.getPosition());
+                                _case = pm.getCase(joueur.getPosition());
 
                                 Thread.sleep(FPS);
 
                                 pausePartie = true;
+                                _case.fenetreAction(partieM);
+
                                 pausePartie = false;
                                 while(pausePartie && !START) { Thread.sleep(100); }
-
                                 // Fenetre Action;
+                                _case.actionCase(joueur, pm, partieM);
+
                             }
 
                             Thread.sleep(100);
                             partieM.deplacerPion(joueur);
-                            // partieM.refreshLabels(pm);
+                            partieM.refreshLabels(pm);
 
                             // pausePartie ;
                             pausePartie = !joueur.getEstEnFaillite();
