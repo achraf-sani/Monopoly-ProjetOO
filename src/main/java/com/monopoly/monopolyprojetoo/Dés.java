@@ -12,13 +12,14 @@ import java.util.Random;
 public class Dés {
 
     Random random = new Random();
-
+    /*
     @FXML
     private ImageView dice1Image;
     @FXML
     private ImageView dice2Image;
     @FXML
     private Button rollButton;
+    */
 
     private int dé1;
     private int dé2;
@@ -29,14 +30,17 @@ public class Dés {
     public int getDés(){
         return (this.dé1 + this.dé2);
     }
-    public int lancerDes() {
+    public int[] lancerDes() {
+        int dice[] = new int[2];
         this.dé1 = 1+this.random.nextInt(6);
         this.dé2 = 1+this.random.nextInt(6);
+        dice[0] = this.dé1;
+        dice[1] = this.dé2;
 
-        return getDés();
+        return dice;
     }
 
-    @FXML
+    /*@FXML
     void roll(ActionEvent event) {
 
         rollButton.setDisable(true);
@@ -46,10 +50,9 @@ public class Dés {
                 System.out.println("Thread Running");
                 try {
                     for (int i = 0; i < 15; i++) {
-                        dé1 = (random.nextInt(6)+1);
-                        dé2 = (random.nextInt(6)+1);
-                        File file1 = new File("src/main/resources/com/monopoly/monopolyprojetoo/dice/dice" + dé1 + ".png");
-                        File file2 = new File("src/main/resources/com/monopoly/monopolyprojetoo/dice/dice" + dé2 + ".png");
+                        int[] dice = lancerDes();
+                        File file1 = new File("src/main/resources/com/monopoly/monopolyprojetoo/dice/dice" + dice[0] + ".png");
+                        File file2 = new File("src/main/resources/com/monopoly/monopolyprojetoo/dice/dice" + dice[1] + ".png");
                         dice1Image.setImage(new Image(file1.toURI().toString()));
                         dice2Image.setImage(new Image(file2.toURI().toString()));
                         Thread.sleep(50);
@@ -62,5 +65,5 @@ public class Dés {
         };
 
         thread.start();
-    }
+    }*/
 }

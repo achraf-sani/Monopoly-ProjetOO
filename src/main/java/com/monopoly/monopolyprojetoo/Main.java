@@ -10,10 +10,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        // Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+        //primaryStage.setTitle("Hello World");
+        //primaryStage.setScene(new Scene(root));
+        //primaryStage.show();
+
+        try {
+            new PartieMonopoly(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

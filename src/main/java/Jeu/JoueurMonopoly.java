@@ -12,8 +12,9 @@ public class JoueurMonopoly extends Joueur {
     private boolean estEnFaillite=false;
     private ArrayList<Case> terrains = new ArrayList<Case>();
     private ArrayList<String> couleurs = new ArrayList<String>();
-    public JoueurMonopoly(String nom, int id) {
+    public JoueurMonopoly(String nom, int id, int argent) {
         super(nom, id);
+        this.argent = argent;
     }
 
 
@@ -32,6 +33,7 @@ public class JoueurMonopoly extends Joueur {
         int rouge=0;
         int jaune=0;
 
+        /*
         for (Case t: this.getTerrains()){
             if(t.getCouleur() == "bleu") bleu+=1;
             if(t.getCouleur() == "vert") vert+=1;
@@ -42,6 +44,7 @@ public class JoueurMonopoly extends Joueur {
             if(t.getCouleur() == "rouge") rouge+=1;
             if(t.getCouleur() == "jaune") jaune+=1;
         }
+        */
 
         // Couleur en possession si tous les terrains de la même couleur sont achetés
         if(bleu==2) couleurs.add("bleu");

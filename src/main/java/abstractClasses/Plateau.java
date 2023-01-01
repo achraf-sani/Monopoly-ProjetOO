@@ -1,6 +1,7 @@
 package abstractClasses;
 
 import abstractClasses.Case;
+import com.monopoly.monopolyprojetoo.Dés;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,8 @@ public abstract class Plateau {
     public int nbrTours =1;
     public int joueurCourantID=0;
     public ArrayList<Case> cases = new ArrayList<Case>();
+
+    public Dés dice = new Dés();
 
     public int getNbrCases() { return this.nbrCases; }
     public int getNbrJoueurs() { return this.nbrJoueurs; }
@@ -22,20 +25,24 @@ public abstract class Plateau {
         for (int i=0; i<nbrCases; i++) { cases.add(null); }
     }
 
+    public int getJoueurActifID() { return this.joueurCourantID; }
     public Case getCase(int i) { return this.cases.get(i); }
     public void setCase(int i, Case _case) {
         this.cases.set(i, _case);
-        cases.get(i).setID(i);
+        //cases.get(i).setID(i);
     }
+
+
 
 
     public void setJoueurSuivant() {
         this.joueurCourantID++;
-        if(this.joueurCourantID >= this.nombreDeJoueurs) {
+        if(this.joueurCourantID >= this.nbrJoueurs) {
             this.joueurCourantID = 0;
             this.nbrTours++;
         }
     }
+
 
     public abstract boolean finPartie();
     public abstract Joueur estGagnant();
