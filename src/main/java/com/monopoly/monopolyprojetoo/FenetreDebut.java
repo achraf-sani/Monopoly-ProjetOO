@@ -2,12 +2,14 @@ package com.monopoly.monopolyprojetoo;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -35,7 +37,9 @@ public class FenetreDebut {
         // Layer 1 - Image
         i_Plateau = new ImageView("file:src/main/java/Jeu/Images/plateauDebut.jpg");
         root.getChildren().add(i_Plateau);
-        Label label = new Label(" Monopoly - Projet OO ");
+        Label label = new Label(" Monopoly - Projet OO \nAchraf");
+        label.setAlignment(Pos.CENTER);
+        label.setFont(new Font("Arial", 24));
         root.getChildren().add(label);
 
         // Button
@@ -47,17 +51,18 @@ public class FenetreDebut {
         root.getChildren().add(b_Start);
 
         // Pos. button
-        AnchorPane.setBottomAnchor(b_Start, 20.0);
-        AnchorPane.setLeftAnchor(b_Start, 225.0);
+        AnchorPane.setBottomAnchor(b_Start, 110.0);
+        AnchorPane.setLeftAnchor(b_Start, 235.0);
+
         // Pos. image
-        AnchorPane.setTopAnchor(i_Plateau, 50.0);
-        AnchorPane.setBottomAnchor(i_Plateau, 70.0);
+        AnchorPane.setTopAnchor(i_Plateau, 10.0);
+        AnchorPane.setBottomAnchor(i_Plateau, 10.0);
         AnchorPane.setRightAnchor(i_Plateau, 10.0);
         AnchorPane.setLeftAnchor(i_Plateau, 10.0);
 
         // Pos. label
-        AnchorPane.setRightAnchor(label, 250.0);
-        AnchorPane.setTopAnchor(label, 20.0);
+        //AnchorPane.setRightAnchor(label, 210.0);
+        //AnchorPane.setTopAnchor(label, 300.0);
         Scene scene = new Scene(root);
         stage.setTitle("Hello!");
         stage.setScene(scene);

@@ -1,30 +1,24 @@
 package Cases;
 
 import com.monopoly.monopolyprojetoo.PartieMonopoly;
-import io.Console;
 import abstractClasses.Case;
-import jeu.JoueurMonopoly;
-import jeu.PlateauMonopoly;
+import Jeu.JoueurMonopoly;
+import Jeu.PlateauMonopoly;
 
 
 public class Case_depart extends Case{
 
-    public CaseDepart() {
+    public Case_depart() {
         super("Depart", 0);
     }
 
-    public void actionCase(JoueurMonopoly joueur, PlateauMonopoly plateau, PartieMonopoly fp) {
-
-        Console es = new Console();
+    public void actionCase(JoueurMonopoly joueur, PlateauMonopoly plateau, PartieMonopoly partieM) {
 
         joueur.ajouterArgent(200);
-        es.println(" > " + joueur.getNom() + " s'arrête sur la case départ: il reçoit 2000€ supplémentaire !");
-        if(fp!=null) fp.afficherMessage(joueur.getNom() + " s'arrête sur la case départ et reçoit 4000€ !");
+        if(partieM!=null) partieM.afficherMsg(joueur.getNom() + " s'arrête sur la case départ et reçoit $200 !");
     }
 
-    public void fenetreAction(PartieMonopoly fp) {
-        fp.getPartie().reprendrePartie();
-    }
+    public void fenetreAction(PartieMonopoly partieM) { partieM.getPartie().reprendrePartie(); }
     
     @Override
     public JoueurMonopoly getProprietaire() {
@@ -42,25 +36,9 @@ public class Case_depart extends Case{
     }
 
     @Override
-    public int getPrixMaison() {
-        return 0;
-    }
-
-    @Override
-    public int getNbMaison() {
-        return 0;
-    }
-
-    @Override
     public boolean getReponseQuestion() {
         return false;
     }
-
-    @Override
-    public boolean getPeutMettreMaison() {
-        return false;
-    }
-
     @Override
     public void setProprietaire(JoueurMonopoly j) {}
 

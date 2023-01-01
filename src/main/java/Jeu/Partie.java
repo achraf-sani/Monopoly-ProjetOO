@@ -1,6 +1,7 @@
 package Jeu;
 
 import abstractClasses.Case;
+import com.monopoly.monopolyprojetoo.Dés;
 import com.monopoly.monopolyprojetoo.PartieMonopoly;
 
 import javafx.concurrent.Service;
@@ -30,6 +31,8 @@ public class Partie {
     public void reprendrePartie() { this.pausePartie = false; }
     public boolean getPausePartie() { return this.pausePartie; }
 
+
+
     public PlateauMonopoly getPM() {
         return this.pm;
     }
@@ -48,11 +51,17 @@ public class Partie {
                         while(!pm.finPartie() && pm.getNbrTours() <= 100) {
                             joueur = pm.getJoueurActif();
 
-                            //partieM.afficherMsg()
+                            partieM.afficherMsg("C'est au tour de " + joueur.getNom() + " de jouer (possède " + joueur.getArgent() + "$).");
                             if (!joueur.getEstEnFaillite()) {
                                 Thread.sleep(FPS);
+
+                                for (int i =0; i<15; i++ ) {
+                                    started = pm.dice.lancerDes()[0] + pm.dice.lancerDes()[1];
+                                    partieM.afficherDes(pm);
+                                    Thread.sleep(50);
+                                }
                                 started = pm.dice.lancerDes()[0] + pm.dice.lancerDes()[1];
-                                //partieM.afficherDes(pm);
+                                partieM.afficherDes(pm);
                                 pm.deplacerJoueur(joueur, started);
                                 partieM.deplacerPion(joueur);
 
@@ -62,23 +71,23 @@ public class Partie {
 
                                 pausePartie = true;
                                 pausePartie = false;
-                                while(pausePartie && !START) { Thread.sleep(400); }
+                                while(pausePartie && !START) { Thread.sleep(100); }
 
                                 // Fenetre Action;
                             }
 
-                            Thread.sleep(400);
+                            Thread.sleep(100);
                             partieM.deplacerPion(joueur);
                             // partieM.refreshLabels(pm);
 
                             // pausePartie ;
                             pausePartie = !joueur.getEstEnFaillite();
-                            while(pausePartie && !START) { Thread.sleep(200); }
-                            // partieM.effacerDes();
+                            while(pausePartie && !START) { Thread.sleep(100); }
+                            partieM.effacerDes();
                             pm.setJoueurSuivant();
                         }
 
-                        // partieM.afficherGagnant();
+                        partieM.afficherGagnant(pm);
 
                         return null;
                     }

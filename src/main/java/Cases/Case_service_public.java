@@ -1,50 +1,46 @@
 package Cases;
 
 import com.monopoly.monopolyprojetoo.PartieMonopoly;
-import io.Console;
 import abstractClasses.Case;
-import jeu.JoueurMonopoly;
-import jeu.PlateauMonopoly;
+import Jeu.JoueurMonopoly;
+import Jeu.PlateauMonopoly;
+
+import java.util.Random;
 
 
-public class Case_service_public {
+public class Case_service_public extends Case{
 
     private JoueurMonopoly proprietaire;
     private boolean reponseQuestion = false;
 
    
-    public CaseServicePublic(String nom) {
+    public Case_service_public(String nom) {
         super(nom, 150);
     }
 
     @Override
-   
-    public void actionCase(JoueurMonopoly joueur, PlateauMonopoly plateau, PartieMonopoly fp) {
-
-        Console es = new Console();
+    public void actionCase(JoueurMonopoly joueur, PlateauMonopoly plateau, PartieMonopoly partieM) {
 
         if(this.getProprietaire() == null) {
             if(getReponseQuestion()) {
-                if(acheterTerrain(joueur, fp))
-                    fp.setMarqueurProprietaire(joueur, this);
+                if(acheterTerrain(joueur, partieM))
+                    partieM.setMarqueurProprietaire(joueur, this);
             }
             else {
-                es.println(" > " + joueur.getNom() + " décide de ne pas acheter cette compagnie.");
-                fp.afficherMessage(joueur.getNom() + " décide de ne pas acheter cette compagnie.");
+                partieM.afficherMsg(joueur.getNom() + " décide de ne pas acheter cette compagnie.");
             }
         }
 
         else if(this.getProprietaire() != joueur)
-            payerLoyer(joueur, plateau, fp);
+            payerLoyer(joueur, plateau, partieM);
 
         else {
-            es.println(" > " + joueur.getNom() + " possède la compagnie.");
-            if(fp!=null) fp.afficherMessage("Le propriétaire est en prison. " + joueur.getNom() + " ne paye pas de loyer.");
+            if(partieM!=null) partieM.afficherMsg("Le propriétaire est en prison. " + joueur.getNom() + " ne paye pas de loyer.");
         }
     }
 
 
-    public boolean acheterTerrain(JoueurMonopoly joueur, PartieMonopoly fp) {
+    public boolean acheterTerrain(JoueurMonopoly joueur, PartieMonopoly partieM) {
         if((joueur.getArgent() - this.getPrix()) <= 0) {
             System.out.println("Vous n'avez pas assez d'argent!");
             return false;
@@ -53,61 +49,51 @@ public class Case_service_public {
             setProprietaire(joueur);
             joueur.ajouterTerrain(this);
             joueur.retirerArgent(this.getPrix());
-            joueur.setNbServices(joueur.getNbServices() + 1);
+            joueur.setNbrServices(joueur.getNbrServices() + 1);
 
-            System.out.println(" > " + joueur.getNom() + " achète " + this.getNom() + " pour " + this.getPrix() + "€");
-            if(fp!=null) fp.afficherMessage(joueur.getNom() + " achète " + this.getNom() + " pour " + this.getPrix() + "€");
+            if(partieM!=null) partieM.afficherMsg(joueur.getNom() + " achète " + this.getNom() + " pour " + this.getPrix() + "€");
             return true;
         }
     }
 
-    public void payerLoyer(JoueurMonopoly joueur, PlateauMonopoly pm, PartieMonopoly fp) {
+    public void payerLoyer(JoueurMonopoly joueur, PlateauMonopoly pm, PartieMonopoly partieM) {
         String beneficiaire = "la Banque";
 
-        if(!this.getProprietaire().getEstPrison()) {
-
-            int loyer = pm.des.lancerDes();
-            if(fp!=null) {
-                fp.effacerDes();
-                fp.afficherDes(pm);
-            }
-
-            if(this.getProprietaire().getNbServices() == 2) loyer*=10;
-            else loyer*=4;
-
-            System.out.println(" > " + joueur.getNom() + " lance les dés... [" + pm.des.getDe1() + "][" + pm.des.getDe2() + "]... et obtient un " + pm.des.getDes());
-            joueur.retirerArgent(loyer);
-
-            if(!this.getProprietaire().getEstBanqueroute()) {
-                this.getProprietaire().ajouterArgent(loyer);
-                beneficiaire = this.getProprietaire().getNom();
-            }
-            System.out.println(" > " + joueur.getNom() + " paye un loyer de " + loyer + "€ à " + beneficiaire);
-            if(fp!=null) fp.afficherMessage(joueur.getNom() + " paye un loyer de " + loyer + "€ à " + beneficiaire);
+        int loyer = pm.dice.lancerDes()[0] + pm.dice.lancerDes()[1];
+        if(partieM!=null) {
+            partieM.effacerDes();
+            partieM.afficherDes(pm);
         }
-        else {
-            System.out.println(" > Le propriétaire est en prison. " + joueur.getNom() + " ne paye pas de loyer.");
-            if(fp!=null) fp.afficherMessage("Le propriétaire est en prison. " + joueur.getNom() + " ne paye pas de loyer.");
+
+        if(this.getProprietaire().getNbrServices() == 2) loyer*=10;
+        else loyer*=4;
+
+        joueur.retirerArgent(loyer);
+
+        if(!this.getProprietaire().getEstEnFaillite()) {
+            this.getProprietaire().ajouterArgent(loyer);
+            beneficiaire = this.getProprietaire().getNom();
         }
+        System.out.println(" > " + joueur.getNom() + " paye un loyer de " + loyer + "€ à " + beneficiaire);
+        if(partieM!=null) partieM.afficherMsg(joueur.getNom() + " paye un loyer de " + loyer + "€ à " + beneficiaire);
+
     }
 
     @SuppressWarnings("static-access")
     @Override
-    /**
-     * Affiche une fenêtre pour l'achat de la case et reprend le cours de la partie
-     */
-    public void fenetreAction(FenetrePrincipale fp) {
 
-        if(fp.getPartie().PARTIE_AUTO) {
+    public void fenetreAction(PartieMonopoly partieM) {
+
+        if(partieM.getPartie().START) {
             Random rand = new Random();
             if(rand.nextBoolean())
                 reponseQuestion = true;
-            fp.getPartie().reprendrePartie();
+            partieM.getPartie().reprendrePartie();
         }
         else if(this.getProprietaire() == null)
-            fp.afficherFenetreAchatTerrain();
+            partieM.afficherFenetreAchatTerrain();
         else
-            fp.getPartie().reprendrePartie();
+            partieM.getPartie().reprendrePartie();
     }
     
 
@@ -127,24 +113,10 @@ public class Case_service_public {
     }
 
     @Override
-    public int getPrixMaison() {
-        return 0;
-    }
-
-    @Override
-    public int getNbMaison() {
-        return 0;
-    }
-
-    @Override
     public boolean getReponseQuestion() {
         return reponseQuestion;
     }
 
-    @Override
-    public boolean getPeutMettreMaison() {
-        return false;
-    }
 
     @Override
     public void setProprietaire(JoueurMonopoly j) {
@@ -161,35 +133,4 @@ public class Case_service_public {
         return "CaseServicePublic [" + super.toString() + ", proprietaire=" + (proprietaire==null?"null":proprietaire.getNom()) + "]";
     }
 
-
-    public static void main(String[] args) {
-
-        Console es = new Console();
-        es.println("TEST DE LA CLASSE : CaseServicePublic");
-
-        JoueurMonopoly j1 = new JoueurMonopoly("Yann", 0, 1000);
-        JoueurMonopoly j2 = new JoueurMonopoly("Benoit", 1, 1000);
-        PlateauMonopoly pm = new PlateauMonopoly(2);
-        es.println(j1.toString()+"\n");
-
-        CaseServicePublic c = (CaseServicePublic) pm.getCase(12);
-        c.acheterTerrain(j1, null);
-
-        es.println("== Nombres de SP de " + j1.getNom() + " : " + j1.getNbServices());
-
-        c.payerLoyer(j2, pm, null);
-        es.println("");
-
-        c = (CaseServicePublic) pm.getCase(28);
-        c.acheterTerrain(j1, null);
-        es.println("== Nombres de SP de " + j1.getNom() + " : " + j1.getNbServices());
-
-        c.payerLoyer(j2, pm, null);
-
-        es.println("\n" + j1.toString());
-    }
-
-
-
-    
 }

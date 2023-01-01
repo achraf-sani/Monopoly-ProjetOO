@@ -1,11 +1,14 @@
 package com.monopoly.monopolyprojetoo;
 
+import Cases.Case_terrain;
 import Jeu.Partie;
+import abstractClasses.Case;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +22,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -29,6 +33,15 @@ import javafx.util.Duration;
 
 
 public class PartieMonopoly {
+
+    Random random = new Random();
+
+    @FXML
+    private ImageView dice1Image;
+    @FXML
+    private ImageView dice2Image;
+
+
     public Stage stage;
     public StackPane root;
 
@@ -47,6 +60,7 @@ public class PartieMonopoly {
     public Color[] Couleurs = new Color[] {Color.RED, Color.BLUE};
 
     public FenetreDebut fd = new FenetreDebut(this);
+    private FenetreAcheterTerrain fat = new FenetreAcheterTerrain(this);
 
     private Partie partie;
 
@@ -74,7 +88,7 @@ public class PartieMonopoly {
 
         Des.add(new ImageView());
         Des.add(new ImageView());
-        Des.get(0).setTranslateX(247);
+        Des.get(0).setTranslateX(200);
         Des.get(0).setTranslateY(360);
         Des.get(1).setTranslateX(337);
         Des.get(1).setTranslateY(360);
@@ -208,7 +222,7 @@ public class PartieMonopoly {
 
     public Stage getStage() { return this.stage; }
     public StackPane getRoot() { return this.root; }
-    public Circle getPionActif() { return l_pions.get(partie.getPM().getJoueurActifID());}
+    public Circle getPionActif() { return l_pions.get(partie.getPM().getJoueurCourantID());}
 
     public void refreshLabels(PlateauMonopoly pm) {
         Platform.runLater(new Runnable() {
@@ -220,6 +234,110 @@ public class PartieMonopoly {
                     l_joueurs.get(i).setText(""+pm.getJoueur(i).getArgent()+"$.");
                     // String listeTerrains
                 }
+            }
+        });
+    }
+    public void afficherMsg(String msg) {
+
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+
+                l_Message.setTextFill(Couleurs[getPartie().getPM().getJoueurCourantID()]);
+                l_Message.setText(msg);
+            }
+        });
+    }
+    public Partie getPartie() { return this.partie; }
+
+    public void afficherDes(PlateauMonopoly pm) {
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+
+                effacerDes();
+
+                Des.get(0).setImage(imageDes.get(pm.dice.getDé1()-1));
+                Des.get(1).setImage(imageDes.get(pm.dice.getDé2()-1));
+
+            }
+        });
+    }
+    public void effacerDes() {
+        Des.get(0).setImage(null);
+        Des.get(1).setImage(null);
+    }
+
+    public void afficherFenetreAchatTerrain() {
+        Platform.runLater(new Runnable() {
+            @Override public void run() { fat.afficherFenetre(); }
+        });
+    }
+
+    public void afficherGagnant(PlateauMonopoly pm) {
+
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+
+                Label vainqueur = new Label("Le vainqueur est "+pm.estGagnant().getNom()+" !");
+                vainqueur.setTextFill(l_pions.get(pm.estGagnant().getId()).getFill());
+                vainqueur.setFont(Font.font("Arial", 26));
+                vainqueur.setTranslateX(145);
+                vainqueur.setTranslateY(525);
+
+                root.getChildren().add(vainqueur);
+
+                root.getChildren().remove(tourSuivant);
+
+            }
+        });
+    }
+
+    public void setMarqueurProprietaire(JoueurMonopoly joueur, Case _case) {
+
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+
+                _case.getMarqueur().setFill(getPionActif().getFill());
+
+                double x = 100, y = 100;
+                int pos = joueur.getPosition();
+
+                if(_case.getMarqueur().getPoints().isEmpty())
+                    root.getChildren().add(_case.getMarqueur());
+
+                if(pos > 0 && pos < 10) {
+                    if(_case.getMarqueur().getPoints().isEmpty())
+                        _case.getMarqueur().getPoints().addAll(new Double[] {0.,0.,0.,12.,12.,12.});
+                    x = 517 - ((pos-1) * 54);
+                    y = 642;
+                }
+                else if(pos > 10 && pos < 20) {
+                    if(_case.getMarqueur().getPoints().isEmpty())
+                        _case.getMarqueur().getPoints().addAll(new Double[] {0.,12.,12.,12.,12.,0.});
+                    x = 51;
+                    y = 558 - ((pos-11) * 54);
+                }
+                else if(pos > 20 && pos < 30) {
+                    if(_case.getMarqueur().getPoints().isEmpty())
+                        _case.getMarqueur().getPoints().addAll(new Double[] {0.,0.,0.,12.,12.,12.});
+                    x = 85 + ((pos-21) * 54);
+                    y = 51;
+                }
+                else if(pos > 30 && pos < 40) {
+                    if(_case.getMarqueur().getPoints().isEmpty())
+                        _case.getMarqueur().getPoints().addAll(new Double[] {0.,0.,12.,0.,0.,12.});
+                    x = 592;
+                    y = 85 + ((pos-31) * 54);
+                }
+
+                if(pos == 15 || pos == 12)
+                    x+=21;
+                else if(pos == 25 || pos == 28)
+                    y+=21;
+                else if(pos == 35)
+                    x-=21;
+
+                _case.getMarqueur().setTranslateX(x);
+                _case.getMarqueur().setTranslateY(y);
             }
         });
     }

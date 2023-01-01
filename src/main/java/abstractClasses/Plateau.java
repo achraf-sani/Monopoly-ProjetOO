@@ -25,7 +25,6 @@ public abstract class Plateau {
         for (int i=0; i<nbrCases; i++) { cases.add(null); }
     }
 
-    public int getJoueurActifID() { return this.joueurCourantID; }
     public Case getCase(int i) { return this.cases.get(i); }
     public void setCase(int i, Case _case) {
         this.cases.set(i, _case);
