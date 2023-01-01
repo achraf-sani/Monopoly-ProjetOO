@@ -24,7 +24,7 @@ public class PlateauMonopoly extends Plateau {
         setCase(5, new Case_gare("Gare Montparnasse"));
         //setCase(7, new CaseChance());
         //setCase(10, new CasePrison());
-        setCase(12, new Case_service_public("Compagnie d'�lectricit�"));
+        setCase(12, new Case_service_public("Compagnie d'électricité"));
         setCase(15, new Case_gare("Gare de Lyon"));
         //setCase(17, new CaseCommunaute());
         setCase(20, new Case_parc_gratuit());
