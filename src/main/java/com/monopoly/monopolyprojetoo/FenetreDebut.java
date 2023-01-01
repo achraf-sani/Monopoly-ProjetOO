@@ -37,10 +37,20 @@ public class FenetreDebut {
         // Layer 1 - Image
         i_Plateau = new ImageView("file:src/main/java/Jeu/Images/plateauDebut.jpg");
         root.getChildren().add(i_Plateau);
-        Label label = new Label(" Monopoly - Projet OO \nAchraf");
+        Label label = new Label(" Monopoly - Projet OO");
         label.setAlignment(Pos.CENTER);
         label.setFont(new Font("Arial", 24));
         root.getChildren().add(label);
+
+        Label labelS = new Label("Achraf SANI");
+        labelS.setAlignment(Pos.CENTER);
+        labelS.setFont(new Font("Arial", 18));
+        root.getChildren().add(labelS);
+
+        Label labelD = new Label("Ahmed DAOUDI");
+        labelD.setAlignment(Pos.CENTER);
+        labelD.setFont(new Font("Arial", 18));
+        root.getChildren().add(labelD);
 
         // Button
         b_Start = new Button(" Commencer le jeu ");
@@ -52,17 +62,23 @@ public class FenetreDebut {
 
         // Pos. button
         AnchorPane.setBottomAnchor(b_Start, 110.0);
-        AnchorPane.setLeftAnchor(b_Start, 235.0);
+        AnchorPane.setLeftAnchor(b_Start, 225.0);
 
         // Pos. image
-        AnchorPane.setTopAnchor(i_Plateau, 10.0);
-        AnchorPane.setBottomAnchor(i_Plateau, 10.0);
-        AnchorPane.setRightAnchor(i_Plateau, 10.0);
-        AnchorPane.setLeftAnchor(i_Plateau, 10.0);
+        //AnchorPane.setTopAnchor(i_Plateau, 10.0);
+        //AnchorPane.setBottomAnchor(i_Plateau, 10.0);
+        //AnchorPane.setRightAnchor(i_Plateau, 10.0);
+        //AnchorPane.setLeftAnchor(i_Plateau, 10.0);
 
         // Pos. label
-        //AnchorPane.setRightAnchor(label, 210.0);
-        //AnchorPane.setTopAnchor(label, 300.0);
+        AnchorPane.setRightAnchor(label, 210.0);
+        AnchorPane.setTopAnchor(label, 300.0);
+
+        AnchorPane.setRightAnchor(labelS, 210.0);
+        AnchorPane.setTopAnchor(labelS, 340.0);
+        AnchorPane.setRightAnchor(labelD, 210.0);
+        AnchorPane.setTopAnchor(labelD, 365.0);
+
         Scene scene = new Scene(root);
         stage.setTitle("Hello!");
         stage.setScene(scene);
